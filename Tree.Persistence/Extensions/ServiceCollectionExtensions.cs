@@ -11,7 +11,9 @@ public static class ServiceCollectionExtensions {
 
     public static IServiceCollection AddPersistence(this IServiceCollection services) {
 
-        return services.AddDatabase();
+        return services
+            .AddDatabase()
+            .AddRepositories();
     }
 
     private static IServiceCollection AddDatabase(this IServiceCollection services) {
@@ -19,7 +21,6 @@ public static class ServiceCollectionExtensions {
             var options = serviceProvider.GetRequiredService<IOptions<DatabaseOptions>>()!.Value;
             builder.UseNpgsql(options.ConnectionString, contexOptions => {
                 contexOptions.CommandTimeout(options.Timeout);
-                contexOptions.EnableRetryOnFailure(options.MaxRetryCount);
             });
         });
 

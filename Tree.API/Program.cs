@@ -1,5 +1,5 @@
-using Tree.API;
 using Tree.API.Extensions;
+using Tree.Application.Extensions;
 using Tree.Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +13,8 @@ builder.Services
     .AddOptionsSetups();
 
 builder.Services
-    .AddPersistence();
+    .AddPersistence()
+    .AddApplication();
 
 builder.Services
     .AddEndpoints();
@@ -28,7 +29,7 @@ if (app.Environment.IsDevelopment()) {
 
 app.UseHttpsRedirection();
 
-var apiGroup = app.MapGroup(Constants.ApiGroup);
+var apiGroup = app.MapGroup(Tree.API.Constants.Application.ApiGroup);
 
 app.MapEndpoints(apiGroup);
 

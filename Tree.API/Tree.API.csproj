@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Tree.Persistence\Tree.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+  </ItemGroup>
+
 </Project>

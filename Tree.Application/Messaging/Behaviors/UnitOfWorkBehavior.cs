@@ -6,12 +6,12 @@ using Tree.Application.Interfaces;
 using Tree.Application.Messaging.Interfaces;
 
 namespace Tree.Application.Messaging.Behaviors;
-internal sealed class UnitOfWorkBehaviour<TRequest, TResponse>
+internal sealed class UnitOfWorkBehavior<TRequest, TResponse>
     : ICommandBehavior<TRequest, TResponse>
     where TRequest : notnull, ICommand {
 
     private readonly IUnitOfWork _unitOfWork;
-    public UnitOfWorkBehaviour(IUnitOfWork unitOfWork) {
+    public UnitOfWorkBehavior(IUnitOfWork unitOfWork) {
         _unitOfWork = unitOfWork;
     }
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken) {
