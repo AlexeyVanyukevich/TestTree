@@ -10,6 +10,8 @@ internal class NodesRepository
 
     protected override IQueryable<Node> Query(bool tracking) {
         return base.Query(tracking)
-            .Include(n => n.Children);
+            .Include(n => n.Children)
+            .Include(n => n.Parent)
+            .ThenInclude(p => p.Children);
     }
 }

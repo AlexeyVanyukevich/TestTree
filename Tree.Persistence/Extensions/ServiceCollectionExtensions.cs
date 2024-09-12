@@ -29,7 +29,7 @@ public static class ServiceCollectionExtensions {
 
     private static IServiceCollection AddRepositories(this IServiceCollection services) {
 
-        services.AddScoped<INodesRepository, NodesRepository>();
+        services.AddTransient<INodesRepository, NodesRepository>();
 
         return services;
     }

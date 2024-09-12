@@ -30,7 +30,8 @@ internal class ValidationBehavior<TRequest, TResponse>
             .ToArray();
 
         if (errors.Any()) {
-            throw new SecureException(errors);
+
+            throw SecureException.FromValidationFailure(errors)!;
         }
 
         var response = await next();

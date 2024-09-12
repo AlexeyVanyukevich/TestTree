@@ -2,4 +2,5 @@
 
 namespace Tree.Persistence.Interfaces;
 public interface INodesRepository : IBaseRepository<Node> {
+
 }
