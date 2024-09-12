@@ -6,7 +6,7 @@ using Tree.Domain.Models;
 namespace Tree.Persistence.Configurations;
 internal abstract class BaseConfiguration<TBase> 
     : IEntityTypeConfiguration<TBase> where TBase : Base {
-    public void Configure(EntityTypeBuilder<TBase> builder) {
+    public virtual void Configure(EntityTypeBuilder<TBase> builder) {
         builder.HasKey(u => u.Id);
         builder.ToTable(nameof(TBase));
     }
