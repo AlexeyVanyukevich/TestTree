@@ -6,11 +6,15 @@ using Tree.Persistence.Interceptors;
 using Tree.Persistence.Interfaces;
 using Tree.Persistence.Options;
 using Tree.Persistence.Repositories;
+using Tree.Persistence.Services;
 
 namespace Tree.Persistence.Extensions;
 public static class ServiceCollectionExtensions {
 
     public static IServiceCollection AddPersistence(this IServiceCollection services) {
+
+
+        services.AddHostedService<MigrationHostedService>();
 
         return services
             .AddInterceptors()
