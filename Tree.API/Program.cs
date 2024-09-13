@@ -1,6 +1,7 @@
 using Tree.API.Extensions;
 using Tree.API.MIddlewares;
 using Tree.Application.Extensions;
+using Tree.Common.Extensions;
 using Tree.Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddTimeProvider();
 builder.Services
     .AddOptionsSetups();
 

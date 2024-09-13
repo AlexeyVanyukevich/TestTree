@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Tree.Application.Interfaces;
 using Tree.Application.Messaging.Behaviors;
 using Tree.Application.Services;
+using Tree.Common.Interfaces;
 
 namespace Tree.Application.Extensions;
 public static class ServiceCollectionExtensions {

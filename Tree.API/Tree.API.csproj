@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tree.Application\Tree.Application.csproj" />
+    <ProjectReference Include="..\Tree.Domain\Tree.Domain.csproj" />
     <ProjectReference Include="..\Tree.Persistence\Tree.Persistence.csproj" />
   </ItemGroup>
 
