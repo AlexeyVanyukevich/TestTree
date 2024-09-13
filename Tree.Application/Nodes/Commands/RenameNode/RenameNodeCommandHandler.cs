@@ -21,8 +21,17 @@ internal class RenameNodeCommandHandler : ICommandHandler<RenameNodeCommand> {
             throw new SecureException($"Node with {nameof(Node.Id)} = {request.Id} was not found");
         }
 
-        if (node.Parent is not null && node.Parent.Children.Any(n => n.Name == request.Name && n.Id != node.Id)) {
-            throw new SecureException($"Node with {nameof(Node.Id)} = {request.Id} was not found");
+
+        var nameExists = node.Parent is null
+            ? await _unitOfWork.Nodes.RootExistsAsync(request.Name, cancellationToken)
+            : node.Parent.Children.Any(n => n.Name == request.Name && n.Id != node.Id);
+
+        if (nameExists) {
+            var exceptionMessage = node.Parent is null
+                ? "Duplicated name"
+                : $"Node with {nameof(Node.Id)} = {request.Id} was not found";
+
+            throw new SecureException(exceptionMessage);
         }
 
         node.Name = request.Name;

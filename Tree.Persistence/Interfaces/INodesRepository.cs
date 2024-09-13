@@ -5,6 +5,7 @@ public interface INodesRepository : IBaseRepository<Node> {
 
     INodesRepository Configure(NodesRepositoryConfiguration configuration);
     Task<Node?> ToTreeAsync(string name, CancellationToken cancellationToken = default);
+    Task<bool> RootExistsAsync(string name, CancellationToken cancellationToken = default);
 }
 
 

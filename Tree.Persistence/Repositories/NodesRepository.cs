@@ -90,4 +90,8 @@ internal class NodesRepository
 
         return nodes.Where(n => !n.ParentId.HasValue).ToList();
     }
+
+    public Task<bool> RootExistsAsync(string name, CancellationToken cancellationToken = default) {
+        return AnyAsync(node => node.ParentId == null && node.Name == name, cancellationToken);
+    }
 }
