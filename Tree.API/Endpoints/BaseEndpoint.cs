@@ -10,8 +10,10 @@ public abstract class BaseEndpoint : IEndpoint {
 
     public void MapEndpoint(IEndpointRouteBuilder app) {
         var builder = string.IsNullOrEmpty(BasePath) ? app : app.MapGroup(BasePath.ToLower());
-        MapEndpointInternal(builder);
+        var conventionBuilder = MapEndpointInternal(builder);
+
+        conventionBuilder.WithTags(BasePath);
     }
 
-    protected abstract void MapEndpointInternal(IEndpointRouteBuilder app);
+    protected abstract IEndpointConventionBuilder MapEndpointInternal(IEndpointRouteBuilder app);
 }

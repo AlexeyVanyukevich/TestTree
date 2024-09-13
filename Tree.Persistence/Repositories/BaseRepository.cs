@@ -8,18 +8,18 @@ using Tree.Persistence.Interfaces;
 namespace Tree.Persistence.Repositories;
 internal class BaseRepository<TBase> : IBaseRepository<TBase> where TBase : Base, new() {
 
-    private readonly DbSet<TBase> _dbSet;
+    protected readonly DbSet<TBase> DbSet;
 
     public BaseRepository(DbContext context) {
-        _dbSet = context.Set<TBase>();
+        DbSet = context.Set<TBase>();
     }
 
     public void Add(TBase entity) {
-        _dbSet.Add(entity);
+        DbSet.Add(entity);
     }
 
     public void Update(TBase entity) {
-        _dbSet.Update(entity);
+        DbSet.Update(entity);
     }
 
     public Task<TBase?> GetByIdAsync(Guid id, bool tracking = false, CancellationToken cancellationToken = default) {
@@ -35,12 +35,12 @@ internal class BaseRepository<TBase> : IBaseRepository<TBase> where TBase : Base
     }
 
     protected virtual IQueryable<TBase> Query(bool tracking) {
-        return tracking ? _dbSet : _dbSet.AsNoTracking();
+        return tracking ? DbSet : DbSet.AsNoTracking();
     }
 
     public void Delete(Guid id) {
         var entity = new TBase { Id = id };
-        _dbSet.Attach(entity);
-        _dbSet.Remove(entity);
+        DbSet.Attach(entity);
+        DbSet.Remove(entity);
     }
 }

@@ -10,8 +10,8 @@ public class DeleteNodeEndpoint : BaseEndpoint{
     public DeleteNodeEndpoint() : base(EndpointsNames.NodesGroup) {
     }
 
-    protected override void MapEndpointInternal(IEndpointRouteBuilder app) {
-        app.MapDelete("{id:guid}", HandleAsync);
+    protected override IEndpointConventionBuilder MapEndpointInternal(IEndpointRouteBuilder app) {
+        return app.MapDelete("{id:guid}", HandleAsync);
     }
 
     private async Task<Results<Ok, BadRequest>> HandleAsync(Guid id, ISender sender, CancellationToken cancellationToken = default) {

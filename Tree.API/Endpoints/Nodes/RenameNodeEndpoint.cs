@@ -10,8 +10,8 @@ public class RenameNodeEndpoint : BaseEndpoint {
     public RenameNodeEndpoint() : base(EndpointsNames.NodesGroup) {
     }
 
-    protected override void MapEndpointInternal(IEndpointRouteBuilder app) {
-        app.MapPatch("{id:guid}", HandleAsync);
+    protected override IEndpointConventionBuilder MapEndpointInternal(IEndpointRouteBuilder app) {
+        return app.MapPatch("{id:guid}", HandleAsync);
     }
 
     private async Task<Results<Ok, BadRequest>> HandleAsync(Guid id, RenameNodeRequest request, ISender sender, CancellationToken cancellationToken = default) {

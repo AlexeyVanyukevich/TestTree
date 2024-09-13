@@ -12,7 +12,10 @@ internal class RenameNodeCommandHandler : ICommandHandler<RenameNodeCommand> {
     }
     public async Task Handle(RenameNodeCommand request, CancellationToken cancellationToken) {
 
-        var node = await _unitOfWork.Nodes.GetByIdAsync(request.Id, cancellationToken: cancellationToken);
+        var node = await _unitOfWork.Nodes.Configure(new Persistence.Interfaces.NodesRepositoryConfiguration {
+            IncludeParent = true,
+            IncludeParentChildren = true
+        }).GetByIdAsync(request.Id, cancellationToken: cancellationToken);
 
         if (node is null) {
             throw new SecureException($"Node with {nameof(Node.Id)} = {request.Id} was not found");

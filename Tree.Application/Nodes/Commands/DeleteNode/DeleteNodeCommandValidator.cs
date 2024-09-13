@@ -13,14 +13,17 @@ internal class DeleteNodeCommandValidator : AbstractValidator<DeleteNodeCommand>
 
         RuleFor(c => c)
             .CustomAsync(async (command, context, cancellationToken) => {
-                var node = await unitOfWork.Nodes.GetByIdAsync(command.Id, cancellationToken: cancellationToken);
+                var node = await unitOfWork.Nodes.Configure(new Persistence.Interfaces.NodesRepositoryConfiguration {
+                    IncludeParent = true,
+                    IncludeParentChildren = true
+                }).GetByIdAsync(command.Id, cancellationToken: cancellationToken);
 
                 if (node is null) {
                     context.AddFailure($"Node with {nameof(Node.Id)} = {command.Id} was not found");
                     return;
                 }
 
-                if (node.Parent.Children.Any()) {
+                if (node.Parent is not null && node.Parent.Children.Any()) {
                     context.AddFailure("You have to delete all children nodes first");
                     return;
                 }

@@ -20,7 +20,9 @@ internal class CreateNodeCommandValidator : AbstractValidator<CreateNodeCommand>
         RuleFor(c => c)
             .CustomAsync(async (command, context, cancellationToken) =>
             {
-                var node = await unitOfWork.Nodes.GetByIdAsync(command.ParentNodeId!.Value, cancellationToken: cancellationToken);
+                var node = await unitOfWork.Nodes.Configure(new Persistence.Interfaces.NodesRepositoryConfiguration {
+                    IncludeChildren = true
+                }).GetByIdAsync(command.ParentNodeId!.Value, cancellationToken: cancellationToken);
 
                 if (node is null)
                 {

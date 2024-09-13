@@ -12,8 +12,8 @@ public class CreateNodeEndpoint : BaseEndpoint {
     public CreateNodeEndpoint() : base(EndpointsNames.NodesGroup) {
     }
 
-    protected override void MapEndpointInternal(IEndpointRouteBuilder app) {
-        app.MapPost(string.Empty, HandleAsync);
+    protected override IEndpointConventionBuilder MapEndpointInternal(IEndpointRouteBuilder app) {
+        return app.MapPost(string.Empty, HandleAsync);
     }
 
     private async Task<Results<Ok, BadRequest>> HandleAsync(CreateNodeRequest request, ISender sender, CancellationToken cancellationToken = default) {        
