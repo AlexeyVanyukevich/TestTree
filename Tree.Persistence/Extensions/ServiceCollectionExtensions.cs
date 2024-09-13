@@ -30,6 +30,7 @@ public static class ServiceCollectionExtensions {
     private static IServiceCollection AddRepositories(this IServiceCollection services) {
 
         services.AddTransient<INodesRepository, NodesRepository>();
+        services.AddTransient<IJournalRepository, JournalRepository>();
 
         return services;
     }

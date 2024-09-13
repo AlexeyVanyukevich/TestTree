@@ -10,6 +10,7 @@ namespace Tree.Application.Interfaces;
 internal interface IUnitOfWork {
 
     INodesRepository Nodes { get; }
+    IJournalRepository Journal { get; }
 
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

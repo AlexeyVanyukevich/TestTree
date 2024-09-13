@@ -4,4 +4,5 @@ internal sealed class EndpointsNames {
 
     public const string NodesGroup = "nodes";
     public const string TreeGroup = "tree";
+    public const string Journal = "journal";
 }
