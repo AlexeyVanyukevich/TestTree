@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Tree.Application.Interfaces;
 using Tree.Application.Messaging.Behaviors;
+using Tree.Application.Services;
 
 namespace Tree.Application.Extensions;
 public static class ServiceCollectionExtensions {
@@ -20,6 +21,7 @@ public static class ServiceCollectionExtensions {
         services.AddValidatorsFromAssembly(Constants.Assembly, includeInternalTypes: true);
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ICorrelationIdGenerator, GuidCorrelationIdGenerator>();
 
         return services;
     }

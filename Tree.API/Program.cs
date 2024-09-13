@@ -1,4 +1,5 @@
 using Tree.API.Extensions;
+using Tree.API.MIddlewares;
 using Tree.Application.Extensions;
 using Tree.Persistence.Extensions;
 
@@ -32,5 +33,8 @@ app.UseHttpsRedirection();
 var apiGroup = app.MapGroup(Tree.API.Constants.Application.ApiGroup);
 
 app.MapEndpoints(apiGroup);
+
+app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
