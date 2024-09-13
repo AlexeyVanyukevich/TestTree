@@ -2,8 +2,8 @@
 using Tree.Application.Journal.Models;
 using Tree.Application.Messaging.Interfaces;
 
-namespace Tree.Application.Journal.Queries.GetSingleRecord;
-internal class GetSingleRecordQueryHandler : IQueryHandler<GetSingleRecordQuery, RecordResponse> {
+namespace Tree.Application.Journal.Queries.GetSingleRecordQuery;
+internal sealed class GetSingleRecordQueryHandler : IQueryHandler<GetSingleRecordQuery, RecordResponse> {
     private readonly IUnitOfWork _unitOfWork;
 
     public GetSingleRecordQueryHandler(IUnitOfWork unitOfWork) {

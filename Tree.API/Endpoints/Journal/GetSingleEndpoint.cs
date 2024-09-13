@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Tree.API.Constants;
 using Tree.Application.Journal.Models;
-using Tree.Application.Journal.Queries.GetSingleRecord;
+using Tree.Application.Journal.Queries.GetSingleRecordQuery;
 
 namespace Tree.API.Endpoints.Journal;
 
@@ -16,11 +16,11 @@ public class GetSingleEndpoint : BaseEndpoint {
     }
 
     private async Task<Ok<RecordResponse>> HandleAsync(Guid id, ISender sender, CancellationToken cancellationToken = default) {
-        var command = new GetSingleRecordQuery {
+        var query = new GetSingleRecordQuery {
             Id = id
         };
 
-        var record = await sender.Send(command, cancellationToken);
+        var record = await sender.Send(query, cancellationToken);
 
         return TypedResults.Ok(record);
     }
