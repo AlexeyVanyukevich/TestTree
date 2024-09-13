@@ -27,7 +27,7 @@ internal class JournalRepository : BaseRepository<Record>, IJournalRepository {
         var count = await query.CountAsync();
 
         var records = await query
-            .OrderByDescending(r => r.Id)
+            .OrderByDescending(r => r.CreatedAt)
             .Skip(skip)
             .Take(top)
             .Select(record => new Record {
