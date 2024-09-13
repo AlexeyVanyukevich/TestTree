@@ -15,12 +15,10 @@ internal sealed class NodeConfiguration
         builder.Property(n => n.Name)
             .IsRequired();
 
-        builder.Property(n => n.ParentId)
-            .IsRequired(false);
-
         builder.HasOne(t => t.Parent)
             .WithMany(t => t.Children)
             .HasForeignKey(t => t.ParentId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired(false);
     }
 }

@@ -15,17 +15,18 @@ internal class DeleteNodeCommandValidator : AbstractValidator<DeleteNodeCommand>
             .CustomAsync(async (command, context, cancellationToken) => {
                 var node = await unitOfWork.Nodes.Configure(new Persistence.Interfaces.NodesRepositoryConfiguration {
                     IncludeParent = true,
-                    IncludeParentChildren = true
+                    IncludeParentChildren = true,
+                    IncludeChildren = true
                 }).GetByIdAsync(command.Id, cancellationToken: cancellationToken);
 
                 if (node is null) {
                     context.AddFailure($"Node with {nameof(Node.Id)} = {command.Id} was not found");
                     return;
                 }
+                bool parentHashChildren = node.Parent?.Children.Any(c => c.Id != node.Id) ?? false;
 
-                if (node.Parent is not null && node.Parent.Children.Any()) {
+                if (node.Children.Any() || parentHashChildren) {
                     context.AddFailure("You have to delete all children nodes first");
-                    return;
                 }
             })
             .When(x => x.Id != Guid.Empty);
