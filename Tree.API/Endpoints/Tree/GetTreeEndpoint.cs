@@ -29,13 +29,9 @@ public class GetTreeEndpoint : BaseEndpoint {
                 Name = name
             };
 
-            await sender.Send(command, cancellationToken);
-        }
+            var node = await sender.Send(command, cancellationToken);
 
-        tree = await sender.Send(query, cancellationToken);
-
-        if (tree is null) {
-            return TypedResults.NotFound();
+            return TypedResults.Ok(node);
         }
 
         return TypedResults.Ok(tree);

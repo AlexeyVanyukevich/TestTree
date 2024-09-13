@@ -1,9 +1,10 @@
 ﻿using Tree.Application.Interfaces;
 using Tree.Application.Messaging.Interfaces;
+using Tree.Application.Nodes.Models;
 using Tree.Domain.Models;
 
 namespace Tree.Application.Nodes.Commands.CreateNode;
-internal class CreateNodeCommandHandler : ICommandHandler<CreateNodeCommand>
+internal class CreateNodeCommandHandler : ICommandHandler<CreateNodeCommand, NodeResponse>
 {
 
     private readonly IUnitOfWork _unitOfWork;
@@ -11,7 +12,7 @@ internal class CreateNodeCommandHandler : ICommandHandler<CreateNodeCommand>
     {
         _unitOfWork = unitOfWork;
     }
-    public Task Handle(CreateNodeCommand request, CancellationToken cancellationToken)
+    public Task<NodeResponse> Handle(CreateNodeCommand request, CancellationToken cancellationToken)
     {
         var node = new Node
         {
@@ -21,6 +22,6 @@ internal class CreateNodeCommandHandler : ICommandHandler<CreateNodeCommand>
 
         _unitOfWork.Nodes.Add(node);
 
-        return Task.CompletedTask;
+        return Task.FromResult(new NodeResponse(node));
     }
 }
