@@ -13,13 +13,13 @@ public class CreateNodeEndpoint : BaseEndpoint {
     }
 
     protected override IEndpointConventionBuilder MapEndpointInternal(IEndpointRouteBuilder app) {
-        return app.MapPost(string.Empty, HandleAsync);
+        return app.MapPost("{parentId:guid}", HandleAsync);
     }
 
-    private async Task<Results<Ok, BadRequest>> HandleAsync(CreateNodeRequest request, ISender sender, CancellationToken cancellationToken = default) {        
+    private async Task<Ok> HandleAsync(Guid parentId, CreateNodeRequest request, ISender sender, CancellationToken cancellationToken = default) {        
         var command = new CreateNodeCommand {
             Name = request.Name,
-            ParentNodeId = request.ParentNodeId,
+            ParentNodeId = parentId,
             AsChild = true
         };
 
